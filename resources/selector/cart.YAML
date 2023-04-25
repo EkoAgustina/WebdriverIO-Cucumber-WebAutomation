@@ -1,0 +1,3 @@
+cart_header: 'By.xpath => //span[@class="title"]'
+list_cart1: 'By.xpath => //div[.="Sauce Labs Backpack"]'
+list_cart2: 'By.xpath => //div[.="Sauce Labs Fleece Jacket"]'
