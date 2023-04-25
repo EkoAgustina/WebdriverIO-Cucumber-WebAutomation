@@ -1,5 +1,5 @@
 const {allureConfig} = require("./allure.conf");
-const myHooks = require('../hooks/driverHooks')
+const myHooks = require('../hooks/driverHooks');
 exports.config = {
     //
     // ====================
@@ -305,8 +305,9 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
-    // after: function (result, capabilities, specs) {
-    // },
+    after: function (result, capabilities, specs) {
+        myHooks.hooksAfterTest(capabilities)
+    },
     /**
      * Gets executed right after terminating the webdriver session.
      * @param {Object} config wdio configuration object
