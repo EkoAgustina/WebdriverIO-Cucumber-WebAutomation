@@ -1,19 +1,57 @@
 const {config} = require('./wdio.conf');
 const args = require('yargs').argv;
+let browserName = args.browserName;
 
 const drivers = {
-    chrome: { version: '112.0.5615.49' }, // https://chromedriver.chromium.org/
+    chrome: { version: '114.0.5735.90' }, // https://chromedriver.chromium.org/
     firefox: { version: '0.32.1' }, // https://github.com/mozilla/geckodriver/releases
-    chromiumedge: { version: '112.0.1722.39' } // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+    chromiumedge: { version: '114.0.1823.18' } // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
 }
 
-config.capabilities = [
-    {
-        maxInstances: 5,
-        browserName: args.browserName,
-        acceptInsecureCerts: true
-    }
-];
+switch (browserName){
+    case 'headless':
+        config.capabilities = [
+            {
+                maxInstances: 5,
+                browserName: 'chrome',
+                'goog:chromeOptions': {
+                    args: ['headless', 'disable-gpu']
+                },
+                acceptInsecureCerts: true
+            }
+        ]
+        break;
+    case 'chrome':
+        config.capabilities = [
+            {
+                maxInstances: 5,
+                browserName: 'chrome',
+                acceptInsecureCerts: true
+            }
+        ]
+        break;
+    case 'firefox':
+        config.capabilities = [
+            {
+                maxInstances: 5,
+                browserName: 'firefox',
+                acceptInsecureCerts: true
+            }
+        ]
+        break;
+    case 'MicrosoftEdge':
+        config.capabilities = [
+            {
+                maxInstances: 5,
+                browserName: 'MicrosoftEdge',
+                acceptInsecureCerts: true
+            }
+        ]
+        break;
+    default:
+        throw new Error(`Condition ${browserName}, condition not recognized!`)
+}
+
 config.services = [
     ['selenium-standalone', {
         logPath: 'logs',
