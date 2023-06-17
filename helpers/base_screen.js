@@ -12,6 +12,14 @@ const base_find = locator => {
     }
 }
 
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
 /**
  * Used as a basic function to take screenshot
  * @param {string} name screenshot name
@@ -22,5 +30,6 @@ async function takeScreenshot(name){
 
 module.exports = {
     base_find,
-    takeScreenshot
+    takeScreenshot,
+    sleep
 }

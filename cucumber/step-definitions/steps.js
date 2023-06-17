@@ -1,4 +1,3 @@
-const sleep = require('sleep');
 const baseScreen = require('../../helpers/base_screen');
 const {actionClick} = require('../../helpers/base_click');
 const {actionFill} = require('../../helpers/base_fill');
@@ -8,7 +7,7 @@ const { Given, When, Then } = require('@wdio/cucumber-framework');
 Given(/^User open "(.*)"$/, async (url) => {
     await browser.url(url);
     await browser.maximizeWindow();
-    sleep.sleep(3);
+    // sleep.sleep(3);
 });
 
 When(/^User click "(.*)"$/, async (locator) =>{
@@ -28,6 +27,6 @@ Then(/^Element \"(.*)\" is (equal|not equal) with data \"(.*)\"$/, async (locato
 });
 
 Then(/^User take screenshot with file name "(.*)"$/, async (name) =>{
-    sleep.sleep(5);
+    // sleep.sleep(5);
     await baseScreen.takeScreenshot(name)
 });

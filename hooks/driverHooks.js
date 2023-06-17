@@ -1,12 +1,13 @@
-const sleep = require('sleep');
 const allureReporter = require('@wdio/allure-reporter').default
 const baseClass = require('../config/baseClass.conf')
+const bs = require('../helpers/base_screen')
 
 
 function hookAfterStep(step,result){
     if(result.passed){
         console.log(`\x1b[33m ✓ ${step.text} is passed \x1b[0m`);
-        sleep.sleep(2)
+        // sleep
+        bs.sleep(10000)
     }
 }
 async function hooksAfterScenario(world,result){
