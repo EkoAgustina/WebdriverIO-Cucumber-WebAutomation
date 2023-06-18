@@ -24,6 +24,7 @@
     "@wdio/selenium-standalone-service": "^8.11.0",
     "@wdio/spec-reporter": "^8.11.0",
     "lodash": "^4.17.21",
+    "wdio-docker-service": "^3.2.1",
     "wdio-wait-for": "^3.0.4",
     "write-yaml-file": "^5.0.0"
   },

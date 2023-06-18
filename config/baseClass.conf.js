@@ -74,6 +74,7 @@ switch (platform){
     Handling for linux
     */
     case 'linux':
+        config.services =['docker']
         config.capabilities = [
             {
                 browserName: 'chrome',
