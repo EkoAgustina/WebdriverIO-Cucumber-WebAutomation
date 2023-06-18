@@ -1,64 +1,91 @@
+const { platform  } = require('node:process');
 const {config} = require('./wdio.conf');
 const args = require('yargs').argv;
 let browserName = args.browserName;
 
-const drivers = {
-    chrome: { version: '114.0.5735.90' }, // https://chromedriver.chromium.org/
-    firefox: { version: '0.32.1' }, // https://github.com/mozilla/geckodriver/releases
-    chromiumedge: { version: '114.0.1823.18' } // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
-}
 
-switch (browserName){
-    case 'headless':
+
+
+
+switch (platform){
+    /*
+     Handling for windows
+     */
+    case 'win32':
+        const drivers = {
+            chrome: { version: '114.0.5735.90' }, // https://chromedriver.chromium.org/
+            firefox: { version: '0.32.1' }, // https://github.com/mozilla/geckodriver/releases
+            chromiumedge: { version: '114.0.1823.18' } // https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
+        }
+
+        switch (browserName){
+            case 'headless':
+                config.capabilities = [
+                    {
+                        maxInstances: 5,
+                        browserName: 'chrome',
+                        'goog:chromeOptions': {
+                            args: ['headless', 'disable-gpu']
+                        },
+                        acceptInsecureCerts: true
+                    }
+                ]
+                break;
+            case 'chrome':
+                config.capabilities = [
+                    {
+                        maxInstances: 5,
+                        browserName: 'chrome',
+                        acceptInsecureCerts: true
+                    }
+                ]
+                break;
+            case 'firefox':
+                config.capabilities = [
+                    {
+                        maxInstances: 5,
+                        browserName: 'firefox',
+                        acceptInsecureCerts: true
+                    }
+                ]
+                break;
+            case 'MicrosoftEdge':
+                config.capabilities = [
+                    {
+                        maxInstances: 5,
+                        browserName: 'MicrosoftEdge',
+                        acceptInsecureCerts: true
+                    }
+                ]
+                break;
+            default:
+                throw new Error(`Condition ${browserName}, condition not recognized!`)
+        }
+
+        config.services = [
+            ['selenium-standalone', {
+                logPath: 'logs',
+                installArgs: { drivers }, // drivers to install
+                args: { drivers } // drivers to use
+            }]
+        ]
+        break;
+    /*
+    Handling for linux
+    */
+    case 'linux':
         config.capabilities = [
             {
-                maxInstances: 5,
                 browserName: 'chrome',
                 'goog:chromeOptions': {
                     args: ['headless', 'disable-gpu']
-                },
-                acceptInsecureCerts: true
-            }
-        ]
-        break;
-    case 'chrome':
-        config.capabilities = [
-            {
-                maxInstances: 5,
-                browserName: 'chrome',
-                acceptInsecureCerts: true
-            }
-        ]
-        break;
-    case 'firefox':
-        config.capabilities = [
-            {
-                maxInstances: 5,
-                browserName: 'firefox',
-                acceptInsecureCerts: true
-            }
-        ]
-        break;
-    case 'MicrosoftEdge':
-        config.capabilities = [
-            {
-                maxInstances: 5,
-                browserName: 'MicrosoftEdge',
-                acceptInsecureCerts: true
+                }
             }
         ]
         break;
     default:
-        throw new Error(`Condition ${browserName}, condition not recognized!`)
+        throw new Error(`your OS is ${platform}, not recognized!!!`)
 }
-
-config.services = [
-    ['selenium-standalone', {
-        logPath: 'logs',
-        installArgs: { drivers }, // drivers to install
-        args: { drivers } // drivers to use
-    }]
-]
 
 config.cucumberOpts.tagExpression = args.cucumberTags;
 

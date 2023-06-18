@@ -2,7 +2,7 @@
 
 ::================================Configuration=============================================
 ::driver options : MicrosoftEdge, firefox, chrome, headless
-set browserName=headless
+set browserName=chrome
 
 set tags=@LoginSuccessfully
 ::==========================================================================================

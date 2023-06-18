@@ -1,5 +1,12 @@
 const {allureConfig} = require("./allure.conf");
 const myHooks = require('../hooks/driverHooks');
+// {
+//     browserName: 'chrome',
+//         chromeOptions: {
+//     args: ['--headless', '--disable-gpu', '--window-size=1280,800'],
+//         binary: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+// }
+// }
 exports.config = {
     //
     // ====================
@@ -136,7 +143,14 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec',['allure', allureConfig]],
+    reporters: [ [
+        "spec",
+        {
+            onlyFailures: false,
+            addConsoleLogs: false,
+            realtimeReporting: true,
+        },
+    ],['allure', allureConfig]],
 
 
     //
@@ -305,9 +319,9 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
-    after: function (result, capabilities, specs) {
-        myHooks.hooksAfterTest(capabilities)
-    },
+    // after: function (result, capabilities, specs) {
+    //
+    // },
     /**
      * Gets executed right after terminating the webdriver session.
      * @param {Object} config wdio configuration object

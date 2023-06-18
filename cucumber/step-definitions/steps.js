@@ -5,9 +5,7 @@ const assertion = require('../../helpers/base_expect');
 const { Given, When, Then } = require('@wdio/cucumber-framework');
 
 Given(/^User open "(.*)"$/, async (url) => {
-    await browser.url(url);
-    await browser.maximizeWindow();
-    // sleep.sleep(3);
+    await baseScreen.base_openBrowser(url)
 });
 
 When(/^User click "(.*)"$/, async (locator) =>{
