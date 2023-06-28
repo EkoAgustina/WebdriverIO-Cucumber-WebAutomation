@@ -15,7 +15,7 @@ if (platform === 'linux'){
             acceptInsecureCerts: true
         }
     ]
-    config.services =[]
+    config.services =['docker']
 }
 else {
     const drivers = {
