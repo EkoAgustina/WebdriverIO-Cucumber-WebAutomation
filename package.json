@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "wdio run ./config/browser.conf.js",
-    "docker": "wdio run ./config/docker.conf.js"
+    "wdio": "wdio run ./config/wdio.conf.js"
   },
   "repository": {
     "type": "git",
