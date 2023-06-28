@@ -9,9 +9,6 @@ if (platform === 'linux'){
         {
             maxInstances: 5,
             browserName: 'chrome',
-            'goog:chromeOptions': {
-                args: ['--disable-gpu','--disable-dev-shm-usage']
-            },
             acceptInsecureCerts: true
         }
     ]
