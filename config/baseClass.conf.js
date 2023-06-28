@@ -1,7 +1,7 @@
 const { platform  } = require('node:process');
 const {config} = require('./wdio.conf');
-const args = require('yargs').argv;
-let browserName = args.browserName;
+const yargs = require('yargs').argv;
+let browserName = yargs.browserName;
 
 
 
@@ -88,6 +88,6 @@ switch (platform){
         throw new Error(`your OS is ${platform}, not recognized!!!`)
 }
 
-config.cucumberOpts.tagExpression = args.cucumberTags;
+config.cucumberOpts.tagExpression = yargs.cucumberTags;
 
 exports.config = config;
