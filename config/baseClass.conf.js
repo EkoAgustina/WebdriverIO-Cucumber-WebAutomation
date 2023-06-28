@@ -74,7 +74,7 @@ switch (platform){
     Handling for linux
     */
     case 'linux':
-        config.services =['docker']
+        config.services =[]
         config.capabilities = [
             {
                 maxInstances: 5,
