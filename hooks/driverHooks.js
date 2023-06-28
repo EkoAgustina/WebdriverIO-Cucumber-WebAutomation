@@ -1,5 +1,5 @@
 const allureReporter = require('@wdio/allure-reporter').default
-const baseClass = require('../config/baseClass.conf')
+const baseClass = require('../config/browser.conf')
 const bs = require('../helpers/base_screen')
 
 

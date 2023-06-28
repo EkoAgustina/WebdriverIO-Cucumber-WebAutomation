@@ -4,8 +4,8 @@
   "description": "Web automation using WebDriverIO and Cucumber",
   "main": "index.js",
   "scripts": {
-    "test": "wdio run ./config/baseClass.conf.js",
-    "wdio": "wdio run ./wdio.conf.js"
+    "test": "wdio run ./config/browser.conf.js",
+    "docker": "wdio run ./config/docker.conf.js"
   },
   "repository": {
     "type": "git",
