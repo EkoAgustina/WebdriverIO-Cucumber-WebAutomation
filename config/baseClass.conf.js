@@ -77,10 +77,9 @@ switch (platform){
         config.services =['docker']
         config.capabilities = [
             {
+                maxInstances: 5,
                 browserName: 'chrome',
-                'goog:chromeOptions': {
-                    args: ['headless', 'disable-gpu']
-                }
+                acceptInsecureCerts: true
             }
         ]
         break;
