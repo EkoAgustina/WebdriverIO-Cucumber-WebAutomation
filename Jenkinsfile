@@ -1,9 +1,9 @@
 pipeline{
     agent any
-    tools {nodejs "node18.6.0"}
+    tools {nodejs "node18.6.1"}
     parameters{
         string(name: "Repositories", defaultValue: "", trim: true, description: "Please enter your Repositories")
-        choice(name: "Browser", choices: ["headless", "chrome"], description: "Please select a browser")
+        choice(name: "Browser", choices: ["headless"], description: "Please select a browser")
         string(name: "Tags", defaultValue: "@", trim: true, description: "Please enter the desired tags")
     }
     stages{
@@ -31,7 +31,7 @@ pipeline{
                 echo '------------------------------------>Running test<------------------------------------'
                 script{
                     sleep(time: 1, unit: "SECONDS")
-                    sh 'npm run docker -- --cucumberTags=$Tags'
+                    sh 'npm run test -- --browserName=$Browser --cucumberTags=$Tags'
                 }
             }
         }
@@ -42,14 +42,12 @@ pipeline{
         }
     }
     post {
-        success{
+        always {
             echo '--------------------->Stops and removes containers for a service defined<---------------------'
             script{
                 sh 'docker-compose down'
                 sleep(time: 1, unit: "SECONDS")
             }
-        }
-        always {
             cleanWs(cleanWhenNotBuilt: false,
                     deleteDirs: true,
                     disableDeferredWipeout: true,
