@@ -221,9 +221,9 @@ exports.config = {
      * @param {String} cid worker id (e.g. 0-0)
      */
     beforeSession: function (config, capabilities, specs, cid) {
-        console.log('================================beforeSession capabilities===============================================')
-        console.log(capabilities)
-        console.log('================================beforeSession capabilities===============================================')
+        console.log('================================beforeSession config===============================================')
+        console.log(config)
+        console.log('================================beforeSession config===============================================')
     },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
