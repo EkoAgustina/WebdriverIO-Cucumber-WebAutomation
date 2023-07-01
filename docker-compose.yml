@@ -2,11 +2,11 @@ version: "3"
 services:
   chrome:
     image: selenium/node-chrome:4.0.0-beta-1-prerelease-20201208
+    container_name: node-chrome
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
       - selenium-hub
-    scale: 2
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
