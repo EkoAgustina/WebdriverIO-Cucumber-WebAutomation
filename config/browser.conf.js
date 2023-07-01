@@ -1,22 +1,7 @@
 const { platform  } = require('node:process');
-const nodeCek = require('node:process')
 const {config} = require('./wdio.conf');
 const yargs = require('yargs').argv;
 let browserName = yargs.browserName;
-
-console.log('===========================node:process================================================')
-console.log(nodeCek)
-console.log('===========================node:process================================================')
-
-var cek = process.env
-var cek2 = process.env.ENV_VARIABLE
-console.log('===========================process.env================================================')
-console.log(cek)
-console.log('===========================process.env================================================')
-
-console.log('===========================ENV_VARIABLE================================================')
-console.log(cek2)
-console.log('===========================ENV_VARIABLE================================================')
 
 if (platform === 'linux'){
     config.capabilities = [
@@ -33,7 +18,13 @@ if (platform === 'linux'){
             acceptInsecureCerts: true
         }
     ]
-    config.services =['docker']
+    config.services =[
+        'docker',[{
+            logFileName: 'wdio-docker.log', // >> your log file name
+            outputDir: 'docker-logs',             // >> this will overwrite config.outputDir
+            args: ['--silent']
+        }]
+    ]
 }
 else {
     const drivers = {
@@ -87,9 +78,9 @@ else {
 
     config.services = [
         ['selenium-standalone', {
-            logPath: 'logs',
-            installArgs: { drivers }, // drivers to install
-            args: { drivers } // drivers to use
+            logFileName: 'wdio-docker.log', // >> your log file name
+            outputDir: 'docker-logs',             // >> this will overwrite config.outputDir
+            args: ['--silent']
         }]
     ]
 }

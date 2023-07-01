@@ -3,16 +3,20 @@ pipeline{
     tools {nodejs "node18.6.1"}
     parameters{
         string(name: "Repositories", defaultValue: "", trim: true, description: "Please enter your Repositories")
-        choice(name: "Browser", choices: ["headless"], description: "Please select a browser")
+        string(name: "Branch", defaultValue: "", trim: true, description: "Please enter your Branch")
         string(name: "Tags", defaultValue: "@", trim: true, description: "Please enter the desired tags")
     }
     stages{
         stage('Project preparation'){
             steps{
-                git "$params.Repositories"
+                git branch: '$Branch', url: '$Repositories'
                 echo '------------------------>Install a package and it\'s dependencies<-----------------------'
                 script{
-                    sh 'npm install'
+                    sh '''
+                    git branch
+                    git pull origin $Branch
+                    npm install
+                    '''
                     sleep(time: 1, unit: "SECONDS")
                 }
             }
@@ -31,7 +35,7 @@ pipeline{
                 echo '------------------------------------>Running test<------------------------------------'
                 script{
                     sleep(time: 1, unit: "SECONDS")
-                    sh 'npm run test -- --browserName=$Browser --cucumberTags=$Tags'
+                    sh 'npm run test -- --cucumberTags=$Tags'
                 }
             }
         }

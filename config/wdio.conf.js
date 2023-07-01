@@ -1,12 +1,7 @@
 const {allureConfig} = require("./allure.conf");
 const myHooks = require('../hooks/driverHooks');
-// {
-//     browserName: 'chrome',
-//         chromeOptions: {
-//     args: ['--headless', '--disable-gpu', '--window-size=1280,800'],
-//         binary: '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-// }
-// }
+const {argv: yargs} = require("yargs");
+const myHostname = yargs.myHostname;
 exports.config = {
     //
     // ====================
@@ -14,7 +9,9 @@ exports.config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    
+    hostname: myHostname,
+    port: 4444,
+    path: '/',
     //
     // ==================
     // Specify Test Files
@@ -122,7 +119,7 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     // services: ['selenium-standalone'],
-    
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks
@@ -179,7 +176,7 @@ exports.config = {
         // <boolean> Enable this config to treat undefined definitions as warnings.
         ignoreUndefinedDefinitions: false
     },
-    
+
     //
     // =====
     // Hooks
@@ -223,8 +220,11 @@ exports.config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      * @param {String} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs, cid) {
-    // },
+    beforeSession: function (config, capabilities, specs, cid) {
+        console.log('================================beforeSession capabilities===============================================')
+        console.log(capabilities)
+        console.log('================================beforeSession capabilities===============================================')
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -302,7 +302,7 @@ exports.config = {
      */
     // afterFeature: function (uri, feature) {
     // },
-    
+
     /**
      * Runs after a WebdriverIO command gets executed
      * @param {String} commandName hook command name

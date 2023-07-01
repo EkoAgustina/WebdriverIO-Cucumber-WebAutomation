@@ -1,23 +1,14 @@
 @ECHO OFF
 
 ::================================Configuration=============================================
+set hostname=selllllllll
+
 ::driver options : MicrosoftEdge, firefox, chrome, headless
-set browserName=chrome
+set browserName=headless
 
 set tags=@LoginSuccessfully
 ::==========================================================================================
 
-if defined browserName (
-    if defined tags (
-        call npm run test -- --browserName="%browserName%" --cucumberTags="%tags%"
-    )
-    else (
-        echo tags IS REQUIRED!
-        timeout /t 3 /nobreak > NUL
-    )
-)
-else (
-    echo browserName IS REQUIRED!
-    timeout /t 3 /nobreak > NUL
-)
+call npm run test -- --myHostname="%hostname%" --browserName="%browserName%" --cucumberTags="%tags%"
+
 ::allure generate --clean && allure open
