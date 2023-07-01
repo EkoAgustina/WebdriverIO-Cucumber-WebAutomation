@@ -4,6 +4,7 @@ pipeline{
     parameters{
         string(name: "Repositories", defaultValue: "", trim: true, description: "Please enter your Repositories")
         string(name: "Branch", defaultValue: "", trim: true, description: "Please enter your Branch")
+        string(name: "HostName", defaultValue: "", trim: true, description: "Please enter Host Name")
         string(name: "Tags", defaultValue: "@", trim: true, description: "Please enter the desired tags")
     }
     stages{
@@ -14,7 +15,6 @@ pipeline{
                 script{
                     sh '''
                     git branch
-                    git pull origin $Branch
                     npm install
                     '''
                     sleep(time: 1, unit: "SECONDS")
@@ -35,7 +35,7 @@ pipeline{
                 echo '------------------------------------>Running test<------------------------------------'
                 script{
                     sleep(time: 1, unit: "SECONDS")
-                    sh 'npm run test -- --cucumberTags=$Tags'
+                    sh 'npm run test -- --myHostname=$HostName --cucumberTags=$Tags'
                 }
             }
         }
