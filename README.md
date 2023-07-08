@@ -8,9 +8,10 @@
 ***
 
 
-![](https://i.imgur.com/SIJZKhE.png)
+![](https://hackmd.io/_uploads/HkVQGfPY3.png)
 
-![](https://i.imgur.com/v3uLPsj.png)
+![](https://hackmd.io/_uploads/SkLIffPK2.png)
 
-![](https://i.imgur.com/JwV4qsf.png)
+![](https://hackmd.io/_uploads/ry_czfwYn.png)
+
 
