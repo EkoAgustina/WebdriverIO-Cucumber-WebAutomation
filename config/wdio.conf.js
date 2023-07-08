@@ -11,7 +11,7 @@ exports.config = {
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
     hostname: myHostname.split(':')[0],
-    port: myHostname.split(':')[1],
+    port: parseInt(myHostname.split(':')[1]),
     path: '/',
     //
     // ==================
