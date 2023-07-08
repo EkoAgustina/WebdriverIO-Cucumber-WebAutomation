@@ -2,6 +2,7 @@ const {allureConfig} = require("./allure.conf");
 const myHooks = require('../hooks/driverHooks');
 const {argv: yargs} = require("yargs");
 const myHostname = yargs.myHostname;
+
 exports.config = {
     //
     // ====================
@@ -9,8 +10,8 @@ exports.config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    hostname: myHostname,
-    port: 4444,
+    hostname: myHostname.split(':')[0],
+    port: myHostname.split(':')[1],
     path: '/',
     //
     // ==================
