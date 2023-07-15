@@ -11,4 +11,6 @@ set tags=@LoginSuccessfully
 
 call npm run test -- --myHostname="%hostname%" --browserName="%browserName%" --cucumberTags="%tags%"
 
+call npx kill-port 4444 -y
+
 ::allure generate --clean && allure open
