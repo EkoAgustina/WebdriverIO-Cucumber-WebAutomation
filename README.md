@@ -7,10 +7,13 @@
 
 ***
 
+![image](https://github.com/EkoAgustina/WebdriverIO-Cucumber-WebAutomation/assets/98994988/b8509f15-20f9-4dc6-aa39-c93e3da8d312)
 
-![](https://i.imgur.com/SIJZKhE.png)
 
-![](https://i.imgur.com/v3uLPsj.png)
+![image](https://github.com/EkoAgustina/WebdriverIO-Cucumber-WebAutomation/assets/98994988/92719734-52a1-45e3-9d5c-c00a2dbd3e1b)
 
-![](https://i.imgur.com/JwV4qsf.png)
 
+![image](https://github.com/EkoAgustina/WebdriverIO-Cucumber-WebAutomation/assets/98994988/3aedb115-d3d9-4ae3-adbc-d813fb16eacf)
+
+
+***
