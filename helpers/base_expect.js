@@ -7,29 +7,41 @@ const {actionGetText} = require('./base_get');
  * @param {string} locator path element
  * @param {string} condition Conditions for assertions
  */
-async function element_displayed(locator,condition){
-    const elDisplayed = await base_find(locator).isDisplayed()
-    switch (condition){
-        case 'is displayed':
-            if (elDisplayed !== true){
-                throw new Error(`Element ${elDisplayed}, not displayed`)
-            }
-            else{
-                console.log(`Element ${elDisplayed}, is displayed`)
-                return elDisplayed
-            }
-        case 'not displayed':
-            if (elDisplayed !== false){
-                throw new Error(`Element ${elDisplayed}, is displayed not as expected`)
-            }
-            else{
-                console.log(`Element ${elDisplayed}, not displayed as expected`)
-                return elDisplayed
-            }
-        default:
-            throw new Error('Unknown conditions!')
-    }
+function element_displayed(locator,condition){
+    return new Promise(async (resolve,reject) => {
+        const elDisplayed = await base_find(locator).isDisplayed()
+        switch (condition){
+            case 'is displayed':
+                if (elDisplayed !== true){
+                    setTimeout(() => {
+                        reject(new Error(`Element ${elDisplayed}, not displayed`))
+                    },3000)
+                }
+                else{
+                    setTimeout(() => {
+                        console.log(`Element ${elDisplayed}, is displayed`)
+                        resolve(elDisplayed)
+                    })
+                }
+            break;
+            case 'not displayed':
+                if (elDisplayed !== false){
+                    setTimeout(() => {
+                        reject(new Error(`Element ${elDisplayed}, is displayed not as expected`))
+                    },3000)
+                }
+                else{
+                    setTimeout(() =>{
+                        console.log(`Element ${elDisplayed}, not displayed as expected`)
+                        resolve(elDisplayed)
+                    },3000)
+                }
+            break;
+            default:
+                reject(new Error('Unknown conditions!'))
 
+        }
+    })
 }
 
 
