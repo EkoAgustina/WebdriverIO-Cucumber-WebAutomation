@@ -1,10 +1,11 @@
-import { platform } from 'node:process';
+import globalVariables from '../resources/globalVariable.js';
 import { config } from './wdio.conf.js';
 import yargs from "yargs";
 const { argv } = yargs(process.argv);
 let browserName = argv.browserName;
 
-    if (platform === 'linux'){
+    if (globalVariables.os === 'linux'){
+        globalVariables.services = 'docker'
         config.capabilities = [
             {
                 maxInstances: 5,
@@ -20,7 +21,7 @@ let browserName = argv.browserName;
             }
         ]
         config.services =[
-            'docker',[{
+            globalVariables.services,[{
                 logFileName: 'wdio-docker.log', // >> your log file name
                 outputDir: 'docker-logs',             // >> this will overwrite config.outputDir
                 args: ['--silent']
@@ -28,6 +29,7 @@ let browserName = argv.browserName;
         ]
     }
     else {
+        globalVariables.services = 'selenium-standalone'
         const drivers = {
             chrome: { version: '114.0.5735.90' }, // https://chromedriver.chromium.org/
             firefox: { version: '0.32.1' }, // https://github.com/mozilla/geckodriver/releases
@@ -78,14 +80,37 @@ let browserName = argv.browserName;
         }
 
         config.services = [
-            ['selenium-standalone', {
+            [globalVariables.services, {
                 logFileName: 'logs',
                 installArgs:{drivers},
                 args: {drivers}
             }]
         ]
     }
-
+config.reporters = [
+    [
+        "spec",
+        {
+            onlyFailures: false,
+            addConsoleLogs: false,
+            realtimeReporting: true,
+        },
+    ],[
+        'allure',
+    {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: false,
+        useCucumberStepReporter: true,
+        addConsoleLogs: false,
+        reportedEnvironmentVars: {
+            OS: globalVariables.os,
+            Services: globalVariables.services,
+            Host: globalVariables.hostName
+        }
+    }
+    ]
+]
 config.cucumberOpts.tagExpression = argv.cucumberTags;
 
 export default {config}

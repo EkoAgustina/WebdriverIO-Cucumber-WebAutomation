@@ -1,5 +1,5 @@
 import { key_element } from '../mappings/mapper.js';
-import { platform } from 'node:process';
+import globalVariables from '../resources/globalVariable.js';
 
 /**
  * Used as a basic function to search for Elements
@@ -29,7 +29,7 @@ function sleep(duration) {
 async function base_openBrowser(url){
     await browser.url(url)
 
-    if (platform === 'win32'){
+    if (globalVariables.os === 'win32'){
         await browser.maximizeWindow()
     }
     sleep(5)

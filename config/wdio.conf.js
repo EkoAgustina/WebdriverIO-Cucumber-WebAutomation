@@ -1,8 +1,8 @@
-import { allureConfig } from "./allure.conf.js";
+import globalVariables from '../resources/globalVariable.js';
 import { hookBeforeStep,hookAfterStep,hooksAfterScenario } from '../hooks/driverHooks.js';
 import yargs from "yargs";
 const { argv } = yargs(process.argv);
-const myHostname = argv.myHostname;
+globalVariables.hostName = argv.myHostname;
 
 export const config = {
     //
@@ -11,8 +11,8 @@ export const config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    hostname: myHostname.split(':')[0],
-    port: parseInt(myHostname.split(':')[1]),
+    hostname: globalVariables.hostName.split(':')[0],
+    port: parseInt(globalVariables.hostName.split(':')[1]),
     path: '/',
     //
     // ==================
@@ -125,29 +125,15 @@ export const config = {
     // Whether or not retried specfiles should be retried immediately or deferred to the end of the queue
     // specFileRetriesDeferred: false,
     //
-    // Test reporter for stdout.
-    // The only one supported by default is 'dot'
-    // see also: https://webdriver.io/docs/dot-reporter
-    reporters: [ [
-        "spec",
-        {
-            onlyFailures: false,
-            addConsoleLogs: false,
-            realtimeReporting: true,
-        },
-    ],['allure', allureConfig]],
-
-
     //
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
-        requireModule: ['@babel/register'],
         require: ['./cucumber/step-definitions/steps.js'],
         // <boolean> show full backtrace for errors
         backtrace: false,
         // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
-        requireModule: [],
+        requireModule: ['@babel/register'],
         // <boolean> invoke formatters without executing steps
         dryRun: false,
         // <boolean> abort the run on first failure
@@ -307,7 +293,6 @@ export const config = {
      * @param {Array.<String>} specs List of spec file paths that ran
      */
     // after: function (result, capabilities, specs) {
-    //
     // },
     /**
      * Gets executed right after terminating the webdriver session.

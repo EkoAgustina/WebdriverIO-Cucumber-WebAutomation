@@ -1,14 +1,15 @@
 import { sleep } from '../helpers/base_screen.js';
 import { pageLoad } from '../helpers/base_screen.js'
-var urlBefore;
+import globalVariables from '../resources/globalVariable.js'
 
 async function hookBeforeStep(step){
     if (step.text.includes('User open') !== true){
-        return urlBefore = browser.getUrl()
+        return globalVariables.urlBeforeStep = await browser.getUrl()
     }
 }
 
 async function hookAfterStep(scenario,step,result){
+    globalVariables.urlAfterStep = await browser.getUrl()
     if(result.passed){
         console.log(
             `\x1b[33m ${scenario.name} \x1b[0m` + '\n'
@@ -17,8 +18,7 @@ async function hookAfterStep(scenario,step,result){
         )
         sleep(1)
         if(step.text.includes('User open') !== true){
-            var currentUrl = browser.getUrl()
-            if(await urlBefore !== await currentUrl){
+            if(globalVariables.urlBeforeStep !== globalVariables.urlAfterStep){
                 await pageLoad(5)
             }
         }
