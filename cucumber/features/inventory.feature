@@ -1,5 +1,5 @@
 Feature: Inventory
-  @addProduct
+  @SmokeTest @addProduct
   Scenario: User successfully added item to the cart
     Given User open "https://www.saucedemo.com/"
     And Fill "login:usernameField" with data "user_testData:username"
