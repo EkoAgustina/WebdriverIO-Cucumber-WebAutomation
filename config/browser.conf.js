@@ -1,8 +1,9 @@
-const { platform  } = require('node:process');
-const {config} = require('./wdio.conf');
-const yargs = require('yargs').argv;
-let browserName = yargs.browserName;
-const browserConfig = () => {
+import { platform } from 'node:process';
+import { config } from './wdio.conf.js';
+import yargs from "yargs";
+const { argv } = yargs(process.argv);
+let browserName = argv.browserName;
+
     if (platform === 'linux'){
         config.capabilities = [
             {
@@ -84,8 +85,7 @@ const browserConfig = () => {
             }]
         ]
     }
-}
 
-config.cucumberOpts.tagExpression = yargs.cucumberTags;
+config.cucumberOpts.tagExpression = argv.cucumberTags;
 
-exports.config = config,browserConfig();
+export default {config}

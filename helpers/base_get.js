@@ -1,4 +1,4 @@
-const {base_find} = require('./base_screen');
+import { base_find } from './base_screen.js';
 
 
 /**
@@ -17,6 +17,6 @@ async function actionGetText(locator){
     }
 }
 
-module.exports = {
+export {
     actionGetText
 }

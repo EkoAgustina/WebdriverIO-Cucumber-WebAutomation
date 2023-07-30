@@ -1,6 +1,6 @@
-const {base_find} = require('./base_screen');
-const { key_data } = require('../mappings/mapper');
-const {actionGetText} = require('./base_get');
+import { base_find } from './base_screen.js';
+import { key_data } from '../mappings/mapper.js';
+import { actionGetText } from './base_get.js';
 
 /**
  * Used to verify whether an element is displayed or not displayed
@@ -74,7 +74,7 @@ async function equal_data(condition,locator,test_data){
     }
 }
 
-module.exports = {
+export {
     element_displayed,
     equal_data
 }

@@ -1,4 +1,4 @@
-const {base_find} = require('./base_screen');
+import { base_find } from './base_screen.js';
 
 /**
  * Used as a base function to provide a Click action on an Element
@@ -8,6 +8,6 @@ async function actionClick(locator){
     await base_find(locator).click()
 }
 
-module.exports = {
+export {
     actionClick
 }

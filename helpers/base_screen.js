@@ -1,5 +1,5 @@
-const { key_element } = require('../mappings/mapper');
-const { platform  } = require('node:process');
+import { key_element } from '../mappings/mapper.js';
+import { platform } from 'node:process';
 
 /**
  * Used as a basic function to search for Elements
@@ -13,12 +13,12 @@ const base_find = locator => {
     }
 }
 
-function sleep(milliseconds) {
+function sleep(duration) {
     const date = Date.now();
     let currentDate = null;
     do {
       currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
+    } while (currentDate - date < duration * 1000);
   }
 
 
@@ -32,7 +32,20 @@ async function base_openBrowser(url){
     if (platform === 'win32'){
         await browser.maximizeWindow()
     }
-    sleep(5000)
+    sleep(5)
+}
+
+/**
+ * @param {int} duration
+ */
+async function pageLoad(duration){
+    await browser.waitUntil(() =>
+    browser.execute(() => document.readyState === 'complete'),
+        {
+          timeout: duration * 1000,
+          timeoutMsg: 'Page failed to load'
+        }
+      );
 }
 
 /**
@@ -43,9 +56,10 @@ async function takeScreenshot(name){
    await browser.saveScreenshot('./screenshot/'+name+'.png')
 }
 
-module.exports = {
+export {
     base_find,
     takeScreenshot,
     sleep,
-    base_openBrowser
+    base_openBrowser,
+    pageLoad
 }

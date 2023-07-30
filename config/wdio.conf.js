@@ -1,9 +1,10 @@
-const {allureConfig} = require("./allure.conf");
-const myHooks = require('../hooks/driverHooks');
-const {argv: yargs} = require("yargs");
-const myHostname = yargs.myHostname;
+import { allureConfig } from "./allure.conf.js";
+import { hookBeforeStep,hookAfterStep,hooksAfterScenario } from '../hooks/driverHooks.js';
+import yargs from "yargs";
+const { argv } = yargs(process.argv);
+const myHostname = argv.myHostname;
 
-exports.config = {
+export const config = {
     //
     // ====================
     // Runner Configuration
@@ -58,20 +59,6 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    // capabilities: [{
-    //
-    //     // maxInstances can get overwritten per capability. So if you have an in-house Selenium
-    //     // grid with only 5 firefox instances available you can make sure that not more than
-    //     // 5 instances get started at a time.
-    //     maxInstances: 5,
-    //     //
-    //     browserName: 'MicrosoftEdge',
-    //     acceptInsecureCerts: true
-    //     // If outputDir is provided WebdriverIO can capture driver session logs
-    //     // it is possible to configure which logTypes to include/exclude.
-    //     // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
-    //     // excludeDriverLogs: ['bugreport', 'server'],
-    // }],
     //
     // ===================
     // Test Configurations
@@ -155,6 +142,7 @@ exports.config = {
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         // <string[]> (file/dir) require files before executing features
+        requireModule: ['@babel/register'],
         require: ['./cucumber/step-definitions/steps.js'],
         // <boolean> show full backtrace for errors
         backtrace: false,
@@ -263,8 +251,9 @@ exports.config = {
      * @param {IPickle}            scenario scenario pickle
      * @param {Object}             context  Cucumber World object
      */
-    // beforeStep: function (step, scenario, context) {
-    // },
+    beforeStep: async function (step, scenario, context) {
+        await hookBeforeStep(step)
+    },
     /**
      *
      * Runs after a Cucumber Step.
@@ -276,8 +265,8 @@ exports.config = {
      * @param {number}             result.duration  duration of scenario in milliseconds
      * @param {Object}             context          Cucumber World object
      */
-    afterStep: function (step, scenario, result, context) {
-        myHooks.hookAfterStep(step,result);
+    afterStep: async function (step, scenario, result, context) {
+        await hookAfterStep(scenario,step,result);
     },
     /**
      *
@@ -290,7 +279,7 @@ exports.config = {
      * @param {Object}                 context          Cucumber World object
      */
     afterScenario: async function (world, result, context) {
-        await myHooks.hooksAfterScenario(world,result);
+        await hooksAfterScenario(world,result);
     },
     /**
      *

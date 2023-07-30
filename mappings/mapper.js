@@ -1,6 +1,7 @@
-const yaml = require('js-yaml');
-const fs = require('fs');
-const lodash = require('lodash');
+import { load } from 'js-yaml';
+import { readFileSync } from 'fs';
+import pkg from 'lodash';
+const { get } = pkg;
 
 /**
  * Used to read and parse YAML files.
@@ -9,9 +10,9 @@ const lodash = require('lodash');
  * @param {string} path2 path to yml file
  */
 function loadYaml (path1,path2){
-    let path = fs.readFileSync('./resources/'+path1+'/'+path2+'.YAML')
+    let path = readFileSync('./resources/'+path1+'/'+path2+'.YAML')
     try{
-        return yaml.load(path)
+        return load(path)
     } catch(err){
         throw new Error ('Failed to load YAML with original failed message: '+err.message)
     }
@@ -24,11 +25,11 @@ function loadYaml (path1,path2){
 function parse_element (locator) {
     let path1 = 'selector'
     let getkey = locator.split(':')
-    yamlData = loadYaml(path1,getkey[0])
+    let yamlData = loadYaml(path1,getkey[0])
     let key
     try{
         key = getkey[1]
-        return lodash.get(yamlData,key)
+        return get(yamlData,key)
     } catch(err){
         throw new Error('Element not found with original fail message: '+err.message)
     }
@@ -41,12 +42,12 @@ function parse_element (locator) {
 function key_data (test_data) {
     let path1 = 'test_data'
     let getkey = test_data.split(':')
-    yamlData = loadYaml(path1,getkey[0])
+    let yamlData = loadYaml(path1,getkey[0])
     let key
     try{
         key = getkey[1]
-        console.log(lodash.get(yamlData,key))
-        return lodash.get(yamlData,key)
+        console.log(get(yamlData,key))
+        return get(yamlData,key)
     } catch(err){
         throw new Error('Test data not found with original fail message: '+err.message)
     }
@@ -79,7 +80,7 @@ function key_element(locator){
     }
 }
 
-module.exports = {
+export {
     key_element,
     key_data
 }

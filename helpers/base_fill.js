@@ -1,5 +1,5 @@
-const {base_find} = require('./base_screen');
-const {key_data} = require('../mappings/mapper')
+import { base_find } from './base_screen.js';
+import { key_data } from '../mappings/mapper.js';
 
 /**
  * Used as a base function to provide a fill action
@@ -10,6 +10,6 @@ async function actionFill(locator,local_data){
     await base_find(locator).setValue(key_data(local_data))
 }
 
-module.exports = {
+export {
     actionFill
 }

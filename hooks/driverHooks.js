@@ -1,12 +1,28 @@
-const allureReporter = require('@wdio/allure-reporter').default
-const baseClass = require('../config/browser.conf')
-const bs = require('../helpers/base_screen')
+import { sleep } from '../helpers/base_screen.js';
+import { pageLoad } from '../helpers/base_screen.js'
+var urlBefore;
 
+async function hookBeforeStep(step){
+    if (step.text.includes('User open') !== true){
+        return urlBefore = browser.getUrl()
+    }
+}
 
-function hookAfterStep(step,result){
+async function hookAfterStep(scenario,step,result){
     if(result.passed){
-        console.log(`\x1b[33m ✓ ${step.text} is passed \x1b[0m`);
-        bs.sleep(5000)
+        console.log(
+            `\x1b[33m ${scenario.name} \x1b[0m` + '\n'
+            + ' '.repeat(scenario.name.length / 10.5)
+            + `\x1b[33m ✓ ${step.text} \x1b[0m`
+        )
+        sleep(1)
+        if(step.text.includes('User open') !== true){
+            var currentUrl = browser.getUrl()
+            if(await urlBefore !== await currentUrl){
+                await pageLoad(5)
+            }
+        }
+        sleep(1)
     }
 }
 async function hooksAfterScenario(world,result){
@@ -15,7 +31,8 @@ async function hooksAfterScenario(world,result){
     }
 }
 
-module.exports = {
+export {
     hookAfterStep,
-    hooksAfterScenario
+    hooksAfterScenario,
+    hookBeforeStep
 }
