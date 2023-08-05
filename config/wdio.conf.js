@@ -1,5 +1,9 @@
+import fs from 'node:fs/promises';
+import { existsSync, readdirSync } from 'node:fs';
+import { generate } from 'multiple-cucumber-html-reporter';
 import globalVariables from '../resources/globalVariable.js';
-import { allureConfig, specConfig } from './report.conf.js';
+import { stdoutAnsiColor } from '../helpers/base_screen.js';
+import { allureConfig, specConfig, cucumberJsonConfig } from './report.conf.js';
 import { hookBeforeStep, hookAfterStep, hooksAfterScenario } from '../hooks/driverHooks.js';
 import yargs from 'yargs';
 const { argv } = yargs(process.argv);
@@ -117,6 +121,9 @@ export const config = {
   reporters: [
     ['spec', specConfig],
     ['allure', allureConfig],
+    [
+      'cucumberjs-json', cucumberJsonConfig
+    ],
   ],
   //
   // The number of times to retry the entire specfile when it fails as a whole
@@ -168,8 +175,19 @@ export const config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+    var file = ['reporter/cucumber/jsonReport/', 'reporter/allure-results/'];
+    for (var i = 0; i < file.length; i++) {
+      if (existsSync(file[i])) {
+        for (var a = 0; a < readdirSync(file[i]).length; a++) {
+          var filePath = file[i] + readdirSync(file[i])[a];
+          fs.rm(filePath, { recursive: true });
+        }
+      } else {
+        console.log(stdoutAnsiColor('red', `your path report "${file[i]}" does not exist!`));
+      }
+    }
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -313,8 +331,12 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  // onComplete: function(exitCode, config, capabilities, results) {
-  //     },
+  onComplete: function (exitCode, config, capabilities, results) {
+    generate({
+      jsonDir: 'reporter/cucumber/jsonReport/',
+      reportPath: 'reporter/cucumber/htmlReport/',
+    });
+  },
   /**
    * Gets executed when a refresh happens.
    * @param {String} oldSessionId session ID of the old session

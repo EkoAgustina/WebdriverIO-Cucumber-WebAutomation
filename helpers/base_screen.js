@@ -52,4 +52,13 @@ async function takeScreenshot(name) {
   await browser.saveScreenshot('./screenshot/' + name + '.png');
 }
 
-export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad };
+var stdoutAnsiColor = (color,message) => {
+  if(color === 'red'){
+      return '\x1b[31m'+message+'\x1b[0m'
+  }
+  else if (color === 'yellow'){
+      return '\x1b[33m'+message+'\x1b[0m'
+  }
+}
+
+export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor };

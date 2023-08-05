@@ -1,12 +1,12 @@
 import globalVariables from '../resources/globalVariable.js';
 let allureConfig = {
-  outputDir: 'allure-results',
+  outputDir: 'reporter/allure-results',
   disableWebdriverStepsReporting: true,
   disableWebdriverScreenshotsReporting: false,
   useCucumberStepReporter: true,
   addConsoleLogs: false,
   reportedEnvironmentVars: {
-    OS: globalVariables.os
+    OS: globalVariables.os,
   },
 };
 
@@ -16,4 +16,9 @@ let specConfig = {
   realtimeReporting: true,
 };
 
-export { specConfig, allureConfig };
+let cucumberJsonConfig = {
+  jsonFolder: 'reporter/cucumber/jsonReport/',
+  language: 'en',
+};
+
+export { specConfig, allureConfig, cucumberJsonConfig };

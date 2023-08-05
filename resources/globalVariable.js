@@ -5,5 +5,5 @@ export default class globalVariables {
   static services;
   static urlBeforeStep;
   static urlAfterStep;
-  static allureProperties = './allure-results/environment.properties';
+  static allureProperties = './reporter/allure-results/environment.properties';
 }

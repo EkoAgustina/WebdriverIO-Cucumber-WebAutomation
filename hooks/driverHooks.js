@@ -1,5 +1,5 @@
 import { sleep } from '../helpers/base_screen.js';
-import { pageLoad } from '../helpers/base_screen.js';
+import { pageLoad, stdoutAnsiColor } from '../helpers/base_screen.js';
 import globalVariables from '../resources/globalVariable.js';
 import propertiesReader from 'properties-reader'
 
@@ -13,11 +13,11 @@ async function hookAfterStep(scenario, step, result) {
   globalVariables.urlAfterStep = await browser.getUrl();
   if (result.passed) {
     console.log(
-      `\x1b[33m ${scenario.name} \x1b[0m` +
-        '\n' +
-        ' '.repeat(scenario.name.length / 10.5) +
-        `\x1b[33m ✓ ${step.text} \x1b[0m`
-    );
+      stdoutAnsiColor('yellow',scenario.name) +
+      '\n' +
+      ' '.repeat(scenario.name.length / 10.5) +
+      stdoutAnsiColor('yellow',`✓ ${step.text}`)
+    )
     sleep(1);
     if (step.text.includes('User open') !== true) {
       if (globalVariables.urlBeforeStep !== globalVariables.urlAfterStep) {

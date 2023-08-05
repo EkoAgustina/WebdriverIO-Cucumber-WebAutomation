@@ -13,4 +13,4 @@ call npm run test -- --myHostname="%hostname%" --browserName="%browserName%" --c
 
 call npx kill-port 4444 -y
 
-::allure generate --clean && allure open
+::allure generate reporter/allure-results --clean && allure open
