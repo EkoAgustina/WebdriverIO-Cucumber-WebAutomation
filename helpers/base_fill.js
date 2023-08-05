@@ -6,10 +6,8 @@ import { key_data } from '../mappings/mapper.js';
  * @param {string} locator path test data
  * @param {string} local_data path user input
  */
-async function actionFill(locator,local_data){
-    await base_find(locator).setValue(key_data(local_data))
+async function actionFill(locator, local_data) {
+  await base_find(locator).setValue(key_data(local_data));
 }
 
-export {
-    actionFill
-}
+export { actionFill };
