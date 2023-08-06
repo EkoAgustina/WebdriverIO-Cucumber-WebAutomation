@@ -52,6 +52,10 @@ async function takeScreenshot(name) {
   await browser.saveScreenshot('./screenshot/' + name + '.png');
 }
 
+/**
+ * @param {string} color text color in stdout
+ * @param {string} message message in stdout
+ */
 var stdoutAnsiColor = (color,message) => {
   if(color === 'red'){
       return '\x1b[31m'+message+'\x1b[0m'
