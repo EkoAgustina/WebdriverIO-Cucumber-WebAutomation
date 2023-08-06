@@ -53,11 +53,11 @@ async function takeScreenshot(name) {
 }
 
 /**
- * Current date format dd/mm/yy
+ * Current date format dd-mm-yy
  */
 function currentDate() {
   const today = new Date();
-  let date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+  let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
   return date
 }
 
