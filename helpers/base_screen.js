@@ -55,7 +55,7 @@ async function takeScreenshot(name) {
 /**
  * Current date format dd-mm-yy
  */
-function currentDate() {
+function getCurrentDate() {
   const today = new Date();
   let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
   return date
@@ -73,4 +73,4 @@ var stdoutAnsiColor = (color, message) => {
   }
 };
 
-export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor, currentDate };
+export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor, getCurrentDate };
