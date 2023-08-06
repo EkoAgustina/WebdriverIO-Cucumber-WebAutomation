@@ -4,5 +4,4 @@
 node_modules
 package-lock.json
 allure-report/
-reporter/cucumber/jsonReport/
-reporter/cucumber/htmlReport/
+reporter/
