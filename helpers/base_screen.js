@@ -53,16 +53,24 @@ async function takeScreenshot(name) {
 }
 
 /**
+ * Current date format dd/mm/yy
+ */
+function currentDate() {
+  const today = new Date();
+  let date = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear();
+  console.log(date);
+}
+
+/**
  * @param {string} color text color in stdout
  * @param {string} message message in stdout
  */
-var stdoutAnsiColor = (color,message) => {
-  if(color === 'red'){
-      return '\x1b[31m'+message+'\x1b[0m'
+var stdoutAnsiColor = (color, message) => {
+  if (color === 'red') {
+    return '\x1b[31m' + message + '\x1b[0m';
+  } else if (color === 'yellow') {
+    return '\x1b[33m' + message + '\x1b[0m';
   }
-  else if (color === 'yellow'){
-      return '\x1b[33m'+message+'\x1b[0m'
-  }
-}
+};
 
-export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor };
+export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor, currentDate };
