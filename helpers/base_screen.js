@@ -1,3 +1,4 @@
+import cucumberJson from 'wdio-cucumberjs-json-reporter';
 import { key_element } from '../mappings/mapper.js';
 import globalVariables from '../resources/globalVariable.js';
 
@@ -50,6 +51,7 @@ async function pageLoad(duration) {
  */
 async function takeScreenshot(name) {
   await browser.saveScreenshot('./screenshot/' + name + '.png');
+  cucumberJson.attach(await browser.takeScreenshot(), 'image/png');
 }
 
 /**
@@ -58,7 +60,7 @@ async function takeScreenshot(name) {
 function getCurrentDate() {
   const today = new Date();
   let date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
-  return date
+  return date;
 }
 
 /**
