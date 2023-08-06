@@ -1,10 +1,13 @@
 pipeline{
     agent any
-    tools {nodejs "node18.6.1"}
+    tools {
+        nodejs "node18.6.1"
+        allure "allure-commandline"
+    }
     parameters{
         string(name: "Repositories", defaultValue: "", trim: true, description: "Please enter your Repositories")
         string(name: "Branch", defaultValue: "", trim: true, description: "Please enter your Branch")
-        string(name: "HostName", defaultValue: "", trim: true, description: "Please enter Host Name")
+        string(name: "Host", defaultValue: "", trim: true, description: "Please enter Host Name")
         string(name: "Tags", defaultValue: "@", trim: true, description: "Please enter the desired tags")
     }
     stages{
@@ -35,13 +38,16 @@ pipeline{
                 echo '------------------------------------>Running test<------------------------------------'
                 script{
                     sleep(time: 1, unit: "SECONDS")
-                    sh 'npm run test -- --myHostname=$HostName --cucumberTags=$Tags'
+                    sh '''
+                    npm run test -- --myHostname=$Host --cucumberTags=$Tags
+                    '''
                 }
             }
         }
         stage('Publish Report'){
             steps{
-                allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+                allure jdk: '', results: [[path: 'reporter/allure-results']]
+                cucumber buildStatus: 'null', customCssFiles: '', customJsFiles: '', failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', jsonReportDirectory: 'reporter/cucumber/jsonReport/', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
             }
         }
     }
