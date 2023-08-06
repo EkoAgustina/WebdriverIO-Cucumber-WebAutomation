@@ -75,7 +75,7 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    */
   onPrepare: function (config, capabilities) {
-    onPrepareHook()
+    onPrepareHook(config)
   },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service

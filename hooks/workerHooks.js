@@ -2,8 +2,10 @@ import fs from 'node:fs/promises';
 import { existsSync, readdirSync } from 'node:fs';
 import { generate } from 'multiple-cucumber-html-reporter';
 import { stdoutAnsiColor } from '../helpers/base_screen.js';
+import globalVariables from '../resources/globalVariable.js';
 
-function onPrepareHook() {
+function onPrepareHook(config) {
+  globalVariables.cucumberTags = config.cucumberTags;
   var file = ['reporter/cucumber/jsonReport/', 'reporter/allure-results/'];
   for (var i = 0; i < file.length; i++) {
     if (existsSync(file[i])) {
@@ -20,7 +22,7 @@ function onPrepareHook() {
 function onCompleteHook() {
   generate({
     jsonDir: 'reporter/cucumber/jsonReport/',
-    reportPath: 'reporter/cucumber/htmlReport/',
+    reportPath: 'reporter/cucumber/htmlReport/' + globalVariables.cucumberTags + '/',
   });
 }
 
