@@ -17,6 +17,7 @@ let specConfig = {
 };
 
 let cucumberJsonConfig = {
+  disableHooks: true,
   jsonFolder: 'reporter/cucumber/jsonReport/',
   language: 'en',
 };
