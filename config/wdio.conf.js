@@ -1,8 +1,5 @@
-import fs from 'node:fs/promises';
-import { existsSync, readdirSync } from 'node:fs';
-import { generate } from 'multiple-cucumber-html-reporter';
 import globalVariables from '../resources/globalVariable.js';
-import { stdoutAnsiColor } from '../helpers/base_screen.js';
+import { onPrepareHook, onCompleteHook } from '../hooks/workerHooks.js'
 import { allureConfig, specConfig, cucumberJsonConfig } from './report.conf.js';
 import { hookBeforeStep, hookAfterStep, hooksAfterScenario } from '../hooks/driverHooks.js';
 import yargs from 'yargs';
@@ -78,17 +75,7 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    */
   onPrepare: function (config, capabilities) {
-    var file = ['reporter/cucumber/jsonReport/', 'reporter/allure-results/'];
-    for (var i = 0; i < file.length; i++) {
-      if (existsSync(file[i])) {
-        for (var a = 0; a < readdirSync(file[i]).length; a++) {
-          var filePath = file[i] + readdirSync(file[i])[a];
-          fs.rm(filePath, { recursive: true });
-        }
-      } else {
-        console.log(stdoutAnsiColor('red', `your path report "${file[i]}" does not exist!`));
-      }
-    }
+    onPrepareHook()
   },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
@@ -234,10 +221,7 @@ export const config = {
    * @param {<Object>} results object containing test results
    */
   onComplete: function (exitCode, config, capabilities, results) {
-    generate({
-      jsonDir: 'reporter/cucumber/jsonReport/',
-      reportPath: 'reporter/cucumber/htmlReport/',
-    });
+    onCompleteHook()
   },
   /**
    * Gets executed when a refresh happens.
