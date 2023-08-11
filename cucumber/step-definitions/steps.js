@@ -1,30 +1,29 @@
-const baseScreen = require('../../helpers/base_screen');
-const {actionClick} = require('../../helpers/base_click');
-const {actionFill} = require('../../helpers/base_fill');
-const assertion = require('../../helpers/base_expect');
-const { Given, When, Then } = require('@wdio/cucumber-framework');
+import { base_openBrowser, takeScreenshot } from '../../helpers/base_screen.js';
+import { actionClick } from '../../helpers/base_click.js';
+import { actionFill } from '../../helpers/base_fill.js';
+import { element_displayed, equal_data } from '../../helpers/base_expect.js';
+import { Given, When, Then } from '@wdio/cucumber-framework';
 
 Given(/^User open "(.*)"$/, async (url) => {
-    await baseScreen.base_openBrowser(url)
+  await base_openBrowser(url);
 });
 
-When(/^User click "(.*)"$/, async (locator) =>{
-    await actionClick(locator)
+When(/^User click "(.*)"$/, async (locator) => {
+  await actionClick(locator);
 });
 
-Then(/^Fill "(.*)" with data "(.*)"$/, async (locator,local_data) =>{
-    await actionFill(locator,local_data)
+Then(/^Fill "(.*)" with data "(.*)"$/, async (locator, local_data) => {
+  await actionFill(locator, local_data);
 });
 
-Then(/^Element "(.*)" (is displayed|not displayed)$/, async (locator,condition) =>{
-    await assertion.element_displayed(locator,condition)
+Then(/^Element "(.*)" (is displayed|not displayed)$/, async (locator, condition) => {
+  await element_displayed(locator, condition);
 });
 
-Then(/^Element \"(.*)\" is (equal|not equal) with data \"(.*)\"$/, async (locator,condition,test_data) =>{
-    await assertion.equal_data(condition,locator,test_data)
+Then(/^Element \"(.*)\" is (equal|not equal) with data \"(.*)\"$/, async (locator, condition, test_data) => {
+  await equal_data(condition, locator, test_data);
 });
 
-Then(/^User take screenshot with file name "(.*)"$/, async (name) =>{
-    // sleep.sleep(5);
-    await baseScreen.takeScreenshot(name)
+Then(/^User take screenshot with file name "(.*)"$/, async (name) => {
+  await takeScreenshot(name);
 });
