@@ -1,8 +1,8 @@
 import fs from 'node:fs/promises';
 import { existsSync, readdirSync } from 'node:fs';
-import { generate } from 'multiple-cucumber-html-reporter';
 import { stdoutAnsiColor } from '../helpers/base_screen.js';
 import globalVariables from '../resources/globalVariable.js';
+import { SetPathCucumberHtmlReport } from '../config/report.conf.js'
 
 function onPrepareHook(config) {
   globalVariables.cucumberTags = config.cucumberTags;
@@ -20,10 +20,7 @@ function onPrepareHook(config) {
 }
 
 function onCompleteHook() {
-  generate({
-    jsonDir: 'reporter/cucumber/jsonReport/',
-    reportPath: 'reporter/cucumber/htmlReport/' + globalVariables.cucumberTags + '/',
-  });
+  SetPathCucumberHtmlReport(globalVariables.cucumberTags)
 }
 
-export { onPrepareHook, onCompleteHook };
+export { onPrepareHook, onCompleteHook }
