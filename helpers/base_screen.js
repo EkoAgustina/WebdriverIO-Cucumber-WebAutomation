@@ -1,3 +1,5 @@
+import fs from 'node:fs/promises';
+import { existsSync, readdirSync } from 'node:fs';
 import cucumberJson from 'wdio-cucumberjs-json-reporter';
 import { key_element } from '../mappings/mapper.js';
 import globalVariables from '../resources/globalVariable.js';
@@ -75,4 +77,20 @@ var stdoutAnsiColor = (color, message) => {
   }
 };
 
-export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor, getCurrentDate };
+/**
+ * @param {string} directoryPath
+ */
+function cleanDirectory(directoryPath){
+  for (var i = 0; i < directoryPath.length; i++) {
+    if (existsSync(directoryPath[i])) {
+      for (var a = 0; a < readdirSync(directoryPath[i]).length; a++) {
+        var filePath = directoryPath[i] + readdirSync(directoryPath[i])[a];
+        fs.rm(filePath, { recursive: true });
+      }
+    } else {
+      console.log(stdoutAnsiColor('red', `Warning: your path report "${directoryPath[i]}" does not exist!`));
+    }
+  }
+}
+
+export { base_find, takeScreenshot, sleep, base_openBrowser, pageLoad, stdoutAnsiColor, getCurrentDate, cleanDirectory };
