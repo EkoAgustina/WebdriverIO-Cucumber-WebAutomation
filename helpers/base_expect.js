@@ -1,5 +1,5 @@
 import { base_find } from './base_screen.js';
-import { key_data } from '../mappings/mapper.js';
+import { key_data, key_element } from '../mappings/mapper.js';
 import { actionGetText } from './base_get.js';
 
 /**
@@ -14,11 +14,11 @@ function element_displayed(locator, condition) {
       case 'is displayed':
         if (elDisplayed !== true) {
           setTimeout(() => {
-            reject(new Error(`Element ${elDisplayed}, not displayed`));
+            reject(new Error(`Element ${key_element(locator)}, not displayed`));
           }, 3000);
         } else {
           setTimeout(() => {
-            console.log(`Element ${elDisplayed}, is displayed`);
+            console.log(`Element ${key_element(locator)}, is displayed`);
             resolve(elDisplayed);
           });
         }
@@ -26,11 +26,11 @@ function element_displayed(locator, condition) {
       case 'not displayed':
         if (elDisplayed !== false) {
           setTimeout(() => {
-            reject(new Error(`Element ${elDisplayed}, is displayed not as expected`));
+            reject(new Error(`Element ${key_element(locator)}, is displayed not as expected`));
           }, 3000);
         } else {
           setTimeout(() => {
-            console.log(`Element ${elDisplayed}, not displayed as expected`);
+            console.log(`Element ${key_element(locator)}, not displayed as expected`);
             resolve(elDisplayed);
           }, 3000);
         }
