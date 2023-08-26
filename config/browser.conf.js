@@ -27,14 +27,9 @@ if (globalVariables.os === 'linux') {
     ],
   ];
 } else {
-  globalVariables.services = 'selenium-standalone';
-  const drivers = {
-    chrome: { version: '114.0.5735.90' },
-    firefox: { version: '0.32.1' },
-    chromiumedge: { version: '114.0.1823.18' },
-  };
   switch (browserName) {
     case 'headless':
+      globalVariables.services = 'chromedriver';
       config.capabilities = [
         {
           maxInstances: 5,
@@ -47,6 +42,7 @@ if (globalVariables.os === 'linux') {
       ];
       break;
     case 'chrome':
+      globalVariables.services = 'chromedriver';
       config.capabilities = [
         {
           maxInstances: 5,
@@ -56,6 +52,7 @@ if (globalVariables.os === 'linux') {
       ];
       break;
     case 'firefox':
+      globalVariables.services = 'firefox-profile';
       config.capabilities = [
         {
           maxInstances: 5,
@@ -65,6 +62,7 @@ if (globalVariables.os === 'linux') {
       ];
       break;
     case 'MicrosoftEdge':
+      globalVariables.services = 'edgedriver';
       config.capabilities = [
         {
           maxInstances: 5,
@@ -82,8 +80,7 @@ if (globalVariables.os === 'linux') {
       globalVariables.services,
       {
         logFileName: 'logs',
-        installArgs: { drivers },
-        args: { drivers },
+        args: ['--silent']
       },
     ],
   ];
