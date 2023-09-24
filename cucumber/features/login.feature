@@ -1,6 +1,6 @@
 Feature: Login
   @SmokeTest @LoginSuccessfully
-  Scenario: User successfully login with a valid account
+  Scenario: Verify user successfully login using a valid account
     Given User open "https://www.saucedemo.com/"
     And Fill "login:usernameField" with data "user_testData:username"
     And Fill "login:passwordField" with data "user_testData:password"
