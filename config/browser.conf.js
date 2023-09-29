@@ -19,7 +19,7 @@ if (globalVariables.os === 'linux') {
       maxInstances: 5,
       browserName: 'firefox',
       'moz:firefoxOptions': {
-        args: ['--headless', '--no-sandbox', '--disable-gpu'],
+        args: ['-headless'],
       },
       acceptInsecureCerts: true,
     },
@@ -27,7 +27,7 @@ if (globalVariables.os === 'linux') {
       maxInstances: 5,
       browserName: 'msedge',
       'moz:firefoxOptions': {
-        args: ['--headless', '--no-sandbox', '--disable-gpu'],
+        args: ['--headless'],
       },
       acceptInsecureCerts: true,
     },
