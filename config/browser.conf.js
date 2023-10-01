@@ -5,7 +5,7 @@ const { argv } = yargs(process.argv);
 let browserName = argv.browserName;
 
 if (globalVariables.os === 'linux') {
-  globalVariables.services = 'docker';
+  globalVariables.services = []
   config.capabilities = [
     {
       maxInstances: 5,
@@ -15,14 +15,14 @@ if (globalVariables.os === 'linux') {
       },
       acceptInsecureCerts: true,
     },
-    // {
-    //   maxInstances: 5,
-    //   browserName: 'firefox',
-    //   'moz:firefoxOptions': {
-    //     args: ['-headless'],
-    //   },
-    //   acceptInsecureCerts: true,
-    // },
+    {
+      maxInstances: 5,
+      browserName: 'firefox',
+      'moz:firefoxOptions': {
+        args: ['-headless'],
+      },
+      acceptInsecureCerts: true,
+    },
   ];
   config.services = [
     globalVariables.services,
