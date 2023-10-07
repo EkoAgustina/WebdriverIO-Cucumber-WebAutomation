@@ -1,7 +1,7 @@
 version: "3"
 services:
   chrome:
-    image: selenium/node-chrome:4.0.0-beta-1-prerelease-20201208
+    image: selenium/node-chrome:latest
     container_name: node-chrome
     volumes:
       - /dev/shm:/dev/shm
@@ -15,7 +15,7 @@ services:
       - "5900"
 
   selenium-hub:
-    image: selenium/hub:4.0.0-beta-1-prerelease-20201208
+    image: selenium/hub:latest
     container_name: selenium-hub
     ports:
       - "4442:4442"
@@ -23,5 +23,5 @@ services:
       - "4444:4444"
 networks:
   default:
-    external:
       name: jenkis_compose_automation_network
+      external: true
