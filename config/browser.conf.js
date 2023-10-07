@@ -5,7 +5,6 @@ const { argv } = yargs(process.argv);
 let browserName = argv.browserName;
 
 if (globalVariables.os === 'linux') {
-  globalVariables.services = 'docker';
   config.capabilities = [
     {
       maxInstances: 5,
@@ -20,16 +19,7 @@ if (globalVariables.os === 'linux') {
       acceptInsecureCerts: true,
     },
   ];
-  config.services = [
-    globalVariables.services,
-    [
-      {
-        logFileName: 'wdio-docker.log',
-        outputDir: 'docker-logs',
-        args: ['--silent'],
-      },
-    ],
-  ];
+  config.services = [];
 } else {
   switch (browserName) {
     case 'headless':

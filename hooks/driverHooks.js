@@ -32,7 +32,9 @@ async function hooksAfterScenario(world, result) {
   var properties = propertiesReader(globalVariables.allureProperties, {
     writer: { saveSections: true },
   });
-  properties.set('Services', globalVariables.services);
+  if (globalVariables.services !== undefined || globalVariables.services !== null || globalVariables.services !== '') {
+    properties.set('Services', globalVariables.services);
+  }
   properties.set('Host', globalVariables.hostName);
   properties.save(globalVariables.allureProperties);
   if (result.error) {
