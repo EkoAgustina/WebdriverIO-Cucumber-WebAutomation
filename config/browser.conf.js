@@ -7,22 +7,22 @@ let browserName = argv.browserName;
 if (globalVariables.os === 'linux') {
   globalVariables.services = 'docker';
   config.capabilities = [
-    // {
-    //   maxInstances: 5,
-    //   browserName: 'chrome',
-    //   'goog:chromeOptions': {
-    //     args: ['--headless', '--no-sandbox', '--disable-gpu'],
-    //   },
-    //   acceptInsecureCerts: true,
-    // },
     {
       maxInstances: 5,
-      browserName: 'firefox',
-      'moz:firefoxOptions': {
-        args: ['-headless'],
+      browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: ['--headless', '--no-sandbox', '--disable-gpu'],
       },
       acceptInsecureCerts: true,
     },
+    // {
+    //   maxInstances: 5,
+    //   browserName: 'firefox',
+    //   'moz:firefoxOptions': {
+    //     args: ['-headless'],
+    //   },
+    //   acceptInsecureCerts: true,
+    // },
   ];
   config.services = [
     globalVariables.services,
