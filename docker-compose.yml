@@ -10,16 +10,6 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-  edge:
-    image: selenium/node-edge:4.13.0-20231004
-    container_name: node-edge
-    depends_on:
-      - selenium-hub
-    environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-
   firefox:
     image: selenium/node-firefox:4.13.0-20231004
     container_name: node-firefox
