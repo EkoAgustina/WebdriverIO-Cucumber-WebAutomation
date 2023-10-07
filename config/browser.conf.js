@@ -15,14 +15,23 @@ if (globalVariables.os === 'linux') {
       },
       acceptInsecureCerts: true,
     },
-    // {
-    //   maxInstances: 5,
-    //   browserName: 'firefox',
-    //   'moz:firefoxOptions': {
-    //     args: ['-headless'],
-    //   },
-    //   acceptInsecureCerts: true,
-    // },
+    {
+      maxInstances: 5,
+      browserName: 'firefox',
+      'moz:firefoxOptions': {
+        args: ['-headless'],
+      },
+      acceptInsecureCerts: true,
+    },
+    {
+      maxInstances: 5,
+      browserName: 'msedge',
+      'ms:edgeOptions': {
+        args: ['--headless'],
+      },
+      acceptInsecureCerts: true,
+    },
+
   ];
   config.services = [
     globalVariables.services,
