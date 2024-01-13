@@ -9,11 +9,7 @@ import globalVariables from '../resources/globalVariable.js';
  * @param {string} locator path element
  */
 const base_find = (locator) => {
-  try {
-    return $(key_element(locator));
-  } catch (err) {
-    throw err;
-  }
+  return $(key_element(locator));
 };
 
 function sleep(duration) {

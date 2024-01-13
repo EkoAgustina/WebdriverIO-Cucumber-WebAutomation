@@ -1,4 +1,3 @@
-import globalVariables from '../resources/globalVariable.js';
 import { onPrepareHook, onCompleteHook } from '../hooks/workerHooks.js'
 import { allureConfig, specConfig, cucumberJsonConfig } from './report.conf.js';
 import { hookBeforeStep, hookAfterStep, hooksAfterScenario } from '../hooks/driverHooks.js';
@@ -72,7 +71,7 @@ export const config = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  onPrepare: function (config, capabilities) {
+  onPrepare: function (config) {
     onPrepareHook(config)
   },
   /**
@@ -145,7 +144,7 @@ export const config = {
    * @param {IPickle}            scenario scenario pickle
    * @param {Object}             context  Cucumber World object
    */
-  beforeStep: async function (step, scenario, context) {
+  beforeStep: async function (step) {
     await hookBeforeStep(step);
   },
   /**
@@ -159,7 +158,7 @@ export const config = {
    * @param {number}             result.duration  duration of scenario in milliseconds
    * @param {Object}             context          Cucumber World object
    */
-  afterStep: async function (step, scenario, result, context) {
+  afterStep: async function (step, scenario, result) {
     await hookAfterStep(scenario, step, result);
   },
   /**
@@ -172,7 +171,7 @@ export const config = {
    * @param {number}                 result.duration  duration of scenario in milliseconds
    * @param {Object}                 context          Cucumber World object
    */
-  afterScenario: async function (world, result, context) {
+  afterScenario: async function (world, result) {
     await hooksAfterScenario(world, result);
   },
   /**
@@ -218,7 +217,7 @@ export const config = {
    * @param {Array.<Object>} capabilities list of capabilities details
    * @param {<Object>} results object containing test results
    */
-  onComplete: function (exitCode, config, capabilities, results) {
+  onComplete: function () {
     onCompleteHook()
   },
   /**

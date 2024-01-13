@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "wdio run ./config/browser.conf.js",
-    "wdio": "wdio run ./config/wdio.conf.js"
+    "wdio": "wdio run ./config/browser.conf.js",
+    "lint": "eslint .",
+    "test": "eslint . && wdio run ./config/browser.conf.js"
   },
   "repository": {
     "type": "git",
@@ -29,19 +30,29 @@
     "@wdio/local-runner": "^8.11.1",
     "@wdio/selenium-standalone-service": "^8.11.0",
     "@wdio/spec-reporter": "^8.11.0",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-cucumber": "^2.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "eslint-plugin-webdriverio": "^1.0.1",
     "lodash": "^4.17.21",
     "multiple-cucumber-html-reporter": "^3.4.0",
     "wdio-chromedriver-service": "^8.1.1",
     "wdio-cucumberjs-json-reporter": "^5.1.6",
     "wdio-docker-service": "^3.2.1",
     "wdio-edgedriver-service": "^3.0.3",
+    "wdio-eslinter-service": "^0.0.4",
     "wdio-wait-for": "^3.0.4",
     "write-yaml-file": "^5.0.0"
   },
   "dependencies": {
     "@wdio/cli": "^8.11.1",
     "@wdio/logger": "^8.11.0",
-    "chromedriver": "^116.0.0",
+    "chromedriver": "^120.0.0",
     "js-yaml": "^4.1.0",
     "or": "^0.2.0",
     "properties-reader": "^2.2.0",

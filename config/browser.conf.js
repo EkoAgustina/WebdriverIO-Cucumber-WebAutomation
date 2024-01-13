@@ -72,7 +72,7 @@ if (globalVariables.os === 'linux') {
         logFileName: 'logs',
         args: ['--silent']
       },
-    ],
+    ], 
   ];
 }
 config.cucumberOpts.tagExpression = env.cucumberTagExpression;
