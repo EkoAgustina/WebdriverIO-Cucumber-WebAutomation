@@ -1,4 +1,9 @@
-browserName='chrome'
-tags='@LoginSuccessfully'
+hostName='localhost:8080'
+browserName='headless'
+cucumberTags='@LoginSuccessfully'
 
-npm run test -- --browserName=$browserName --cucumberTags=$tags
+export cucumberTagExpression=${cucumberTags}
+export hostName=${hostName}
+export browserName=${browserName}
+
+yarn test
