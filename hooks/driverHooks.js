@@ -3,6 +3,7 @@ import cucumberJson from 'wdio-cucumberjs-json-reporter';
 import { pageLoad, stdoutAnsiColor } from '../helpers/base_screen.js';
 import globalVariables from '../resources/globalVariable.js';
 import propertiesReader from 'properties-reader';
+import { env } from 'process';
 
 async function hookBeforeStep(step) {
   if (step.text.includes('User open') !== true) {
@@ -33,7 +34,7 @@ async function hooksAfterScenario(world, result) {
     writer: { saveSections: true },
   });
   properties.set('Services', globalVariables.services);
-  properties.set('Host', globalVariables.hostName);
+  properties.set('Host', env.hostName);
   properties.save(globalVariables.allureProperties);
   if (result.error) {
     await browser.saveScreenshot('./screenshot/' + world.gherkinDocument.feature.name + 'Fail' + '.png');

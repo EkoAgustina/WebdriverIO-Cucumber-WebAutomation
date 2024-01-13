@@ -2,9 +2,7 @@ import globalVariables from '../resources/globalVariable.js';
 import { onPrepareHook, onCompleteHook } from '../hooks/workerHooks.js'
 import { allureConfig, specConfig, cucumberJsonConfig } from './report.conf.js';
 import { hookBeforeStep, hookAfterStep, hooksAfterScenario } from '../hooks/driverHooks.js';
-import yargs from 'yargs';
-const { argv } = yargs(process.argv);
-globalVariables.hostName = argv.myHostname;
+import { env } from 'process';
 
 export const config = {
   // ====================
@@ -12,8 +10,8 @@ export const config = {
   // ====================
 
   runner: 'local',
-  hostname: globalVariables.hostName.split(':')[0],
-  port: parseInt(globalVariables.hostName.split(':')[1]),
+  hostname: env.hostName.split(':')[0],
+  port: parseInt(env.hostName.split(':')[1]),
   path: '/',
   specs: ['../cucumber/features/**/*.feature'],
   // Patterns to exclude.

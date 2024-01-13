@@ -1,15 +1,15 @@
 import { cleanDirectory } from '../helpers/base_screen.js';
-import globalVariables from '../resources/globalVariable.js';
 import { SetPathCucumberHtmlReport } from '../config/report.conf.js'
+import { env } from 'process';
 
 function onPrepareHook(config) {
-  globalVariables.cucumberTags = config.cucumberTags;
+  // env.cucumberTagExpression = config.cucumberTags;
   var cPath = ['reporter/cucumber/jsonReport/', 'reporter/allure-results/'];
   cleanDirectory(cPath)
 }
 
 function onCompleteHook() {
-  SetPathCucumberHtmlReport(globalVariables.cucumberTags)
+  SetPathCucumberHtmlReport(env.cucumberTagExpression)
 }
 
 export { onPrepareHook, onCompleteHook }

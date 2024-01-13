@@ -1,8 +1,7 @@
 import globalVariables from '../resources/globalVariable.js';
 import { config } from './wdio.conf.js';
-import yargs from 'yargs';
-const { argv } = yargs(process.argv);
-let browserName = argv.browserName;
+import { env } from 'process';
+let browserName = env.browserName;
 
 if (globalVariables.os === 'linux') {
   // globalVariables.services = 'docker';
@@ -76,6 +75,6 @@ if (globalVariables.os === 'linux') {
     ],
   ];
 }
-config.cucumberOpts.tagExpression = argv.cucumberTags;
+config.cucumberOpts.tagExpression = env.cucumberTagExpression;
 
 export default { config };
