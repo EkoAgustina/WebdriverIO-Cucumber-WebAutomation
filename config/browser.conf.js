@@ -1,7 +1,7 @@
 import globalVariables from '../resources/globalVariable.js';
 import { config } from './wdio.conf.js';
 import { env } from 'process';
-let browserName = env.browserName;
+const browserName = env.browserName;
 
 if (globalVariables.os === 'linux') {
   // globalVariables.services = 'docker';
@@ -10,10 +10,10 @@ if (globalVariables.os === 'linux') {
       maxInstances: 5,
       browserName: 'chrome',
       'goog:chromeOptions': {
-        args: ['--headless', '--no-sandbox', '--disable-gpu'],
+        args: ['--headless', '--no-sandbox', '--disable-gpu']
       },
-      acceptInsecureCerts: true,
-    },
+      acceptInsecureCerts: true
+    }
   ];
   config.services = [];
 } else {
@@ -25,10 +25,10 @@ if (globalVariables.os === 'linux') {
           maxInstances: 5,
           browserName: 'chrome',
           'goog:chromeOptions': {
-            args: ['headless', 'disable-gpu'],
+            args: ['headless', 'disable-gpu']
           },
-          acceptInsecureCerts: true,
-        },
+          acceptInsecureCerts: true
+        }
       ];
       break;
     case 'chrome':
@@ -37,8 +37,8 @@ if (globalVariables.os === 'linux') {
         {
           maxInstances: 5,
           browserName: 'chrome',
-          acceptInsecureCerts: true,
-        },
+          acceptInsecureCerts: true
+        }
       ];
       break;
     case 'firefox':
@@ -47,8 +47,8 @@ if (globalVariables.os === 'linux') {
         {
           maxInstances: 5,
           browserName: 'firefox',
-          acceptInsecureCerts: true,
-        },
+          acceptInsecureCerts: true
+        }
       ];
       break;
     case 'MicrosoftEdge':
@@ -57,8 +57,8 @@ if (globalVariables.os === 'linux') {
         {
           maxInstances: 5,
           browserName: 'MicrosoftEdge',
-          acceptInsecureCerts: true,
-        },
+          acceptInsecureCerts: true
+        }
       ];
       break;
     default:
@@ -71,8 +71,8 @@ if (globalVariables.os === 'linux') {
       {
         logFileName: 'logs',
         args: ['--silent']
-      },
-    ], 
+      }
+    ]
   ];
 }
 config.cucumberOpts.tagExpression = env.cucumberTagExpression;

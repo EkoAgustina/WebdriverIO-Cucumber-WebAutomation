@@ -2,12 +2,12 @@ import { cleanDirectory } from '../helpers/base_screen.js';
 import { SetPathCucumberHtmlReport } from '../config/report.conf.js'
 import { env } from 'process';
 
-function onPrepareHook() {
-  var cPath = ['reporter/cucumber/jsonReport/', 'reporter/allure-results/'];
+function onPrepareHook () {
+  const cPath = ['reporter/cucumber/jsonReport/', 'reporter/allure-results/'];
   cleanDirectory(cPath)
 }
 
-function onCompleteHook() {
+function onCompleteHook () {
   SetPathCucumberHtmlReport(env.cucumberTagExpression)
 }
 

@@ -31,7 +31,7 @@ export const config = {
     ['allure', allureConfig],
     [
       'cucumberjs-json', cucumberJsonConfig
-    ],
+    ]
   ],
   cucumberOpts: {
     // <string[]> (file/dir) require files before executing features
@@ -55,7 +55,7 @@ export const config = {
     // <number> timeout for step definitions
     timeout: 60000,
     // <boolean> Enable this config to treat undefined definitions as warnings.
-    ignoreUndefinedDefinitions: false,
+    ignoreUndefinedDefinitions: false
   },
 
   //
@@ -219,7 +219,7 @@ export const config = {
    */
   onComplete: function () {
     onCompleteHook()
-  },
+  }
   /**
    * Gets executed when a refresh happens.
    * @param {String} oldSessionId session ID of the old session

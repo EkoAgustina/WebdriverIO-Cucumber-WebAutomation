@@ -1,17 +1,17 @@
-import { sleep } from '../helpers/base_screen.js';
+import { sleep, pageLoad, stdoutAnsiColor } from '../helpers/base_screen.js';
 import cucumberJson from 'wdio-cucumberjs-json-reporter';
-import { pageLoad, stdoutAnsiColor } from '../helpers/base_screen.js';
+
 import globalVariables from '../resources/globalVariable.js';
 import propertiesReader from 'properties-reader';
 import { env } from 'process';
 
-async function hookBeforeStep(step) {
+async function hookBeforeStep (step) {
   if (step.text.includes('User open') !== true) {
     return (globalVariables.urlBeforeStep = await browser.getUrl());
   }
 }
 
-async function hookAfterStep(scenario, step, result) {
+async function hookAfterStep (scenario, step, result) {
   globalVariables.urlAfterStep = await browser.getUrl();
   if (result.passed) {
     console.log(
@@ -29,9 +29,9 @@ async function hookAfterStep(scenario, step, result) {
     sleep(1);
   }
 }
-async function hooksAfterScenario(world, result) {
-  var properties = propertiesReader(globalVariables.allureProperties, {
-    writer: { saveSections: true },
+async function hooksAfterScenario (world, result) {
+  const properties = propertiesReader(globalVariables.allureProperties, {
+    writer: { saveSections: true }
   });
   properties.set('Services', globalVariables.services);
   properties.set('Host', env.hostName);

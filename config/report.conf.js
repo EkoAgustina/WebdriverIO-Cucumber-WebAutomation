@@ -1,37 +1,37 @@
 import globalVariables from '../resources/globalVariable.js';
 import { readdirSync, mkdirSync, existsSync } from 'node:fs';
 import { generate } from 'multiple-cucumber-html-reporter';
-let allureConfig = {
+const allureConfig = {
   outputDir: 'reporter/allure-results',
   disableWebdriverStepsReporting: true,
   disableWebdriverScreenshotsReporting: false,
   useCucumberStepReporter: true,
   addConsoleLogs: false,
   reportedEnvironmentVars: {
-    OS: globalVariables.os,
-  },
+    OS: globalVariables.os
+  }
 };
 
-let specConfig = {
+const specConfig = {
   onlyFailures: false,
   addConsoleLogs: false,
-  realtimeReporting: true,
+  realtimeReporting: true
 };
 
-let cucumberJsonConfig = {
+const cucumberJsonConfig = {
   disableHooks: false,
   jsonFolder: 'reporter/cucumber/jsonReport/',
-  language: 'en',
+  language: 'en'
 };
 
-function SetPathCucumberHtmlReport(Scenario) {
-  var count = 0;
+function SetPathCucumberHtmlReport (Scenario) {
+  let count = 0;
   const checkDirectories = new RegExp(Scenario)
-  var htmlBasePath = 'reporter/cucumber/htmlReport'
+  const htmlBasePath = 'reporter/cucumber/htmlReport'
   if (existsSync(htmlBasePath) === false) {
     mkdirSync(htmlBasePath)
   }
-  for (var i = 0; i <= readdirSync(htmlBasePath + '/').length; i++) {
+  for (let i = 0; i <= readdirSync(htmlBasePath + '/').length; i++) {
     if (checkDirectories.exec(readdirSync(htmlBasePath + '/')[i])) {
       count += 1;
     }
@@ -40,14 +40,13 @@ function SetPathCucumberHtmlReport(Scenario) {
     count += 1;
     generate({
       jsonDir: 'reporter/cucumber/jsonReport/',
-      reportPath: htmlBasePath + '/' + Scenario + ' ' + count + '/',
+      reportPath: htmlBasePath + '/' + Scenario + ' ' + count + '/'
     });
-  }
-  else {
+  } else {
     count += 1;
     generate({
       jsonDir: 'reporter/cucumber/jsonReport/',
-      reportPath: htmlBasePath + '/' + Scenario + ' ' + count + '/',
+      reportPath: htmlBasePath + '/' + Scenario + ' ' + count + '/'
     });
   }
 }
